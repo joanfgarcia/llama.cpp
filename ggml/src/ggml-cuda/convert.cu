@@ -684,7 +684,7 @@ to_fp32_cuda_t ggml_get_to_fp32_cuda(ggml_type type) {
         case GGML_TYPE_IQ3_S:
             return dequantize_row_iq3_s_cuda;
         case GGML_TYPE_I2_S:
-            return dequantize_block_cuda<QK_I2_S, 2, dequantize_i2_s>;
+            return dequantize_row_i2_s_cuda_real_f32;
         case GGML_TYPE_F16:
             return convert_unary_cuda<half>;
         default:
