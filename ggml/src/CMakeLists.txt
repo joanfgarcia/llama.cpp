@@ -453,9 +453,8 @@ if (GGML_HIPBLAS)
 
     file(GLOB   GGML_SOURCES_ROCM "ggml-cuda/*.cu")
     list(APPEND GGML_SOURCES_ROCM "ggml-cuda.cu")
-    # Exclude BitNet CUDA-Axon files (they reference external CUDA Ladder kernels)
-    list(FILTER GGML_SOURCES_ROCM EXCLUDE REGEX "ggml-bitnet-axon-gpu\\.cu$")
-    list(FILTER GGML_SOURCES_ROCM EXCLUDE REGEX "dequantize-i2s\\.cu$")
+    # Include BitNet CUDA-Axon files
+    list(APPEND GGML_SOURCES_ROCM "ggml-bitnet-axon-gpu.cu")
     file(GLOB   SRCS "ggml-cuda/template-instances/fattn-wmma*.cu")
     list(APPEND GGML_SOURCES_ROCM ${SRCS})
     file(GLOB   SRCS "ggml-cuda/template-instances/mmq*.cu")

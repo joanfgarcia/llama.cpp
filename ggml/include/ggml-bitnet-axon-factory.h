@@ -11,7 +11,7 @@ extern "C" {
 const struct ggml_bitnet_axon_interface * ggml_bitnet_axon_find_best(void);
 
 // Registry of available hardware-specialized Axones
-extern const struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda;
+extern struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda;
 extern const struct ggml_bitnet_axon_interface ggml_bitnet_axon_vulkan;
 extern const struct ggml_bitnet_axon_interface ggml_bitnet_axon_cpu;
 

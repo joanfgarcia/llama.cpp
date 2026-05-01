@@ -22778,6 +22778,13 @@ static void gguf_tensor_info_sanitize(struct gguf_tensor_info * info) {
         GGML_ASSERT(info->ne[i] > 0);
     }
 
+    // Workaround for broken TQ2_0 GGUF metadata
+    if (info->type == GGML_TYPE_TQ2_0) {
+        if (info->ne[0] % 256 != 0) {
+            info->ne[0] = info->ne[0] * 256 / 66;
+        }
+    }
+
     // prevent overflow for total number of elements
     GGML_ASSERT(INT64_MAX/info->ne[1] > info->ne[0]);
     GGML_ASSERT(INT64_MAX/info->ne[2] > info->ne[0]*info->ne[1]);

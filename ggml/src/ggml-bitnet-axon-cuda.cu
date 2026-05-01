@@ -5,7 +5,7 @@
 // Forward declarations of internal kernels (from previous implementation)
 extern "C" void bitnet_cuda_porter_axon(const char * src, char * dst, int64_t ne, cudaStream_t stream);
 
-static struct ggml_bitnet_axon_config axon_config = {0, true, true};
+static struct ggml_bitnet_axon_config axon_config = {0, false, false};
 
 // Implementation of the CUDA Axon Interface
 static bool bitnet_axon_cuda_init(const struct ggml_bitnet_axon_config * config) {
@@ -47,7 +47,7 @@ static void bitnet_axon_cuda_free(void) {
 }
 
 // Global interface instance for the CUDA BitNet Axon
-const struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda = {
+struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda = {
     bitnet_axon_cuda_init,
     bitnet_axon_cuda_transmute,
     bitnet_axon_cuda_mul_mat,

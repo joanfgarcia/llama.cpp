@@ -40,7 +40,7 @@
 #include "ggml-bitnet-axon.h"
 
 #if !defined(GGML_USE_HIPBLAS)
-extern "C" const struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda;
+extern "C" struct ggml_bitnet_axon_interface ggml_bitnet_axon_cuda;
 extern "C" void bitnet_cuda_porter_axon(const char * src, char * dst, int64_t ne, cudaStream_t stream);
 #endif
 
@@ -3386,13 +3386,16 @@ __global__ void k_bitnet_porter(const char * __restrict__ src, char * __restrict
     }
 }
 
+/*
 void bitnet_cuda_porter_axon(const char * src, char * dst, int64_t ne, cudaStream_t stream) {
     const int block_size = 256;
     const int grid_size = (ne + block_size - 1) / block_size;
     k_bitnet_porter<<<grid_size, block_size, 0, stream>>>(src, dst, ne);
     CUDA_CHECK(cudaGetLastError());
 }
+*/
 
+/*
 void bitnet_mul_mat_ladder_axon(
     const char * src0, const char * src1, float * dst,
     int64_t ne00, int64_t ne01, int64_t ne11, int64_t ne0,
@@ -3403,5 +3406,6 @@ void bitnet_mul_mat_ladder_axon(
     extern void ggml_cuda_op_mul_mat_q(ggml_backend_cuda_context & ctx, const ggml_tensor * src0, const ggml_tensor * src1, ggml_tensor * dst);
     // Note: Ladder kernels will be expanded in Phase 6.2 for maximum performance.
 }
+*/
 
 } // extern "C"

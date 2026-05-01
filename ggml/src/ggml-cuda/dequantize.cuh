@@ -107,17 +107,16 @@ static __device__ __forceinline__ void dequantize_i2_s(const void * vx, const in
 
     const float d = x[ib].d;
 
-    int e1 = iqs;
-    int e2 = iqs + 64;
+    const int b_idx = iqs % 32;
+    const int vui = x[ib].qs[b_idx];
 
-    int b1 = e1 % 32;
-    int s1 = 6 - 2 * (e1 / 32);
-    int v1 = (x[ib].qs[b1] >> s1) & 0x3;
+    const int s_x = 6 - (iqs / 32) * 2;
+    const int s_y = s_x - 4;
+
+    int v1 = (vui >> s_x) & 0x3;
     v.x = (v1 == 0) ? -1.0f : (v1 == 2) ? 1.0f : 0.0f;
 
-    int b2 = e2 % 32;
-    int s2 = 6 - 2 * (e2 / 32);
-    int v2 = (x[ib].qs[b2] >> s2) & 0x3;
+    int v2 = (vui >> s_y) & 0x3;
     v.y = (v2 == 0) ? -1.0f : (v2 == 2) ? 1.0f : 0.0f;
 
     v.x *= d;
