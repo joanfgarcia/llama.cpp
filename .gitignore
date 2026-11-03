@@ -133,3 +133,6 @@ poetry.toml
 
 # Test models for lora adapters
 /lora-tests
+
+# Binario de la prueba I2_S (se reconstruye con: c++ test_weights.cpp -o test_weights)
+test_weights
